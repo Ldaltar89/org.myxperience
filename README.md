@@ -1,5 +1,3 @@
-Doc: https://www.twilio.com/en-us/blog/get-started-docker-symfony
-
 #### To run the project use
 
 ```bash
@@ -23,19 +21,11 @@ symfony check:requirements
 OK]  
  Your system is ready to run Symfony projects
 
-### Create a new symphony
+### Create a new symfony
 
 ```bash
 symfony new . --version="7.0.*" --webapp
-```
-
-#### Add some development dependencies
-
-```bash
-# composer req --dev maker ormfixtures fakerphp/faker
-# composer req doctrine twig
-# composer req form validator
-# composer req annotations
+composer require symfony/uid
 ```
 
 #### Create an env file
@@ -58,6 +48,37 @@ DATABASE_URL="mysql://root:xxxx@xxxxx:3306/xxxxx?serverVersion=8.0"
 symfony console make:entity Season
 ```
 
+#### Audit fields
+
+```bash
+isActive -> boolean -> not null
+---
+createdAt -> datetime  -> not null
+createdBy -> string(100)  -> not null
+---
+updateddAt -> datetime  -> nulleable
+updateddBy -> string(100)  -> nulleable
+---
+```
+
+#### After creating the entity updated the ID field
+
+```php
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+  #[ORM\Column(type: UuidType::NAME, unique: true)]
+  #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+  private ?Uuid $id = null;
+
+  ...
+
+  // Search by getId() and replace it with this
+  public function getId(): ?Uuid
+  {
+    return $this->id;
+  }
+```
+
 #### Create migration to update database
 
 ```bash
@@ -68,27 +89,28 @@ symfony console make:migration
 
 ```bash
 symfony console doctrine:migrations:migrate
-composer require stof/doctrine-extensions-bundle
-```
-
-on config/packages/stof_doctrine_extensions.yaml
-update this
-
-```yaml
-# Read the documentation: https://symfony.com/doc/current/bundles/StofDoctrineExtensionsBundle/index.html
-# See the official DoctrineExtensions documentation for more details: https://github.com/Atlantic18/DoctrineExtensions/tree/master/doc/
-stof_doctrine_extensions:
-    default_locale: en_US
-    orm:
-        default:
-            timestampable: true
 ```
 
 ```bash
 symfony console make:crud Season
-# composer require symfony/maker-bundle --dev
-# composer require form validator security-csrf annotations
-# fin
+```
+
+#### After creating the crud add the default values before persist
+
+```php
+// on create method
+    if ($form->isSubmitted() && $form->isValid()) {
+      //
+      $season->setCreatedBy('system');
+      $season->setCreatedAt(new \DateTime());
+      // ...
+    }
+// on update method
+    if ($form->isSubmitted() && $form->isValid()) {
+      $season->setUpdatedBy('system');
+      $season->setUpdatedAt(new \DateTime());
+      // ...
+    }
 ```
 
 ---
@@ -101,22 +123,29 @@ mysql -u xperience -p'xp3ri3nc3' xperience
 show tables;
 ```
 
-composer require orm-fixtures --dev
-
 <!-- symfony console make:fixture SeasonFixture -->
 
-symfony console make:controller SeasonController
-symfony console make:service SeasonService
-
-#### Clear cache on error 502
+#### To create Controller
 
 ```bash
-composer run-script cache:clear
-symfony console cache:clear
+symfony console make:controller SeasonController
 ```
 
-#### Create form
+#### To create Service
+
+```bash
+symfony console make:service SeasonService
+```
+
+#### To create Form
 
 ```bash
 symfony console make:form SeasonFormType Season
+```
+
+#### Clear cache
+
+```bash
+# composer run-script cache:clear
+symfony console cache:clear
 ```
