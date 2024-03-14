@@ -15,6 +15,8 @@ services:
             - '4306:3306'
         volumes:
             - ./infra/mysql:/var/lib/mysql
+        networks:
+            - myx_network
     php:
         platform: linux/amd64
         container_name: php
@@ -26,10 +28,12 @@ services:
             - ./web-app:/var/www/symfony_docker
         depends_on:
             - database
+        networks:
+            - myx_network
     nginx:
         platform: linux/amd64
         container_name: nginx
-        image: nginx:stable-alpine
+        image: nginx:latest
         ports:
             - '8080:80'
         volumes:
@@ -38,3 +42,9 @@ services:
         depends_on:
             - php
             - database
+        networks:
+            - myx_network
+
+networks:
+    myx_network:
+        driver: bridge
