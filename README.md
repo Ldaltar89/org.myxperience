@@ -32,10 +32,10 @@ symfony new . --version="7.0.*" --webapp
 #### Add some development dependencies
 
 ```bash
-composer req --dev maker ormfixtures fakerphp/faker
-composer req doctrine twig
-composer req form validator
-composer req annotations
+# composer req --dev maker ormfixtures fakerphp/faker
+# composer req doctrine twig
+# composer req form validator
+# composer req annotations
 ```
 
 #### Create an env file
@@ -69,9 +69,29 @@ symfony console make:migration
 ```bash
 symfony console doctrine:migrations:migrate
 composer require stof/doctrine-extensions-bundle
-composer require symfony/maker-bundle --dev
-composer require form validator security-csrf annotations
 ```
+
+on config/packages/stof_doctrine_extensions.yaml
+update this
+
+```yaml
+# Read the documentation: https://symfony.com/doc/current/bundles/StofDoctrineExtensionsBundle/index.html
+# See the official DoctrineExtensions documentation for more details: https://github.com/Atlantic18/DoctrineExtensions/tree/master/doc/
+stof_doctrine_extensions:
+    default_locale: en_US
+    orm:
+        default:
+            timestampable: true
+```
+
+```bash
+symfony console make:crud Season
+# composer require symfony/maker-bundle --dev
+# composer require form validator security-csrf annotations
+# fin
+```
+
+---
 
 #### To enter to the database
 

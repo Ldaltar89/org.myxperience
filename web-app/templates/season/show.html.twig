@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Season{% endblock %}
+
+{% block body %}
+    <h1>Season</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ season.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ season.name }}</td>
+            </tr>
+            <tr>
+                <th>Season_year</th>
+                <td>{{ season.seasonYear }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ season.description }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ season.image }}</td>
+            </tr>
+            <tr>
+                <th>IsActive</th>
+                <td>{{ season.isActive ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ season.createdAt ? season.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>CreatedBy</th>
+                <td>{{ season.createdBy }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ season.updatedAt ? season.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedBy</th>
+                <td>{{ season.updatedBy }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_season_index') }}">back to list</a>
+
+    <a href="{{ path('app_season_edit', {'id': season.id}) }}">edit</a>
+
+    {{ include('season/_delete_form.html.twig') }}
+{% endblock %}
