@@ -112,6 +112,7 @@ symfony console make:service SeasonService
 
 ```bash
 composer run-script cache:clear
+symfony console cache:clear
 ```
 
 #### Create form
