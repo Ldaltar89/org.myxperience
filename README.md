@@ -152,6 +152,6 @@ symfony console cache:clear
 
 #### after downloading changes
 
-```
+```bash
 composer update
 ```
