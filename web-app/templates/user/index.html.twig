@@ -16,6 +16,7 @@
                 <th>Name</th>
                 <th>Lastname</th>
                 <th>Dni</th>
+                <th>Season</th>
                 <th>IsActive</th>
                 <th>CreatedAt</th>
                 <th>CreatedBy</th>
@@ -38,6 +39,7 @@
                 <td>{{ user.name }}</td>
                 <td>{{ user.lastname }}</td>
                 <td>{{ user.dni }}</td>
+                <td>{{ user.season.name }}</td>
                 <td>{{ user.isActive ? 'Yes' : 'No' }}</td>
                 <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ user.createdBy }}</td>

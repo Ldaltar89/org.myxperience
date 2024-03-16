@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UniversityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -46,6 +48,14 @@ class University
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $updatedBy = null;
+
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'university', orphanRemoval: true)]
+    private Collection $University;
+
+    public function __construct()
+    {
+        $this->University = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -180,6 +190,36 @@ class University
     public function setUpdatedBy(?string $updatedBy): static
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUniversity(): Collection
+    {
+        return $this->University;
+    }
+
+    public function addUniversity(User $university): static
+    {
+        if (!$this->University->contains($university)) {
+            $this->University->add($university);
+            $university->setUniversity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUniversity(User $university): static
+    {
+        if ($this->University->removeElement($university)) {
+            // set the owning side to null (unless already changed)
+            if ($university->getUniversity() === $this) {
+                $university->setUniversity(null);
+            }
+        }
 
         return $this;
     }

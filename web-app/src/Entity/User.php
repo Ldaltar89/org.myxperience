@@ -77,6 +77,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Season $season = null;
 
+    #[ORM\ManyToOne(inversedBy: 'University')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?University $university = null;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -304,6 +308,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSeason(?Season $season): static
     {
         $this->season = $season;
+
+        return $this;
+    }
+
+    public function getUniversity(): ?University
+    {
+        return $this->university;
+    }
+
+    public function setUniversity(?University $university): static
+    {
+        $this->university = $university;
 
         return $this;
     }
