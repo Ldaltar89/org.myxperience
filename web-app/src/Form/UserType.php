@@ -13,27 +13,17 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('roles')
+            // ->add('roles')
             ->add('password')
             ->add('isVerified')
             ->add('name')
             ->add('lastname')
             ->add('dni')
-            ->add('isActive')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('createdBy')
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedBy')
             ->add('birthday', null, [
                 'widget' => 'single_text',
             ])
             ->add('user_image')
-            ->add('gender')
-        ;
+            ->add('gender');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
