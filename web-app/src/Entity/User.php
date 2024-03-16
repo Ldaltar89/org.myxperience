@@ -73,6 +73,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $gender = null;
 
+    #[ORM\ManyToOne(inversedBy: 'season')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Season $season = null;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -288,6 +292,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setGender(?string $gender): static
     {
         $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getSeason(): ?Season
+    {
+        return $this->season;
+    }
+
+    public function setSeason(?Season $season): static
+    {
+        $this->season = $season;
 
         return $this;
     }

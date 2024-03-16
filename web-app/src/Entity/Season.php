@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SeasonRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
@@ -43,6 +45,14 @@ class Season
 
   #[ORM\Column(length: 100, nullable: true)]
   private ?string $updatedBy = null;
+
+  #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'season', orphanRemoval: true)]
+  private Collection $season;
+
+  public function __construct()
+  {
+      $this->season = new ArrayCollection();
+  }
 
   public function getId(): ?Uuid
   {
@@ -155,5 +165,35 @@ class Season
     $this->updatedBy = $updatedBy;
 
     return $this;
+  }
+
+  /**
+   * @return Collection<int, User>
+   */
+  public function getSeason(): Collection
+  {
+      return $this->season;
+  }
+
+  public function addSeason(User $season): static
+  {
+      if (!$this->season->contains($season)) {
+          $this->season->add($season);
+          $season->setSeason($this);
+      }
+
+      return $this;
+  }
+
+  public function removeSeason(User $season): static
+  {
+      if ($this->season->removeElement($season)) {
+          // set the owning side to null (unless already changed)
+          if ($season->getSeason() === $this) {
+              $season->setSeason(null);
+          }
+      }
+
+      return $this;
   }
 }
