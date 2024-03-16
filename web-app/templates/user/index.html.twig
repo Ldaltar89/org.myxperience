@@ -21,6 +21,9 @@
                 <th>CreatedBy</th>
                 <th>UpdatedAt</th>
                 <th>UpdatedBy</th>
+                <th>Birthday</th>
+                <th>User_image</th>
+                <th>Gender</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -36,22 +39,25 @@
                 <td>{{ user.lastname }}</td>
                 <td>{{ user.dni }}</td>
                 <td>{{ user.isActive ? 'Yes' : 'No' }}</td>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s T') : '' }}</td>
+                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ user.createdBy }}</td>
-                <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s T') : '' }}</td>
+                <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ user.updatedBy }}</td>
+                <td>{{ user.birthday ? user.birthday|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.userImage }}</td>
+                <td>{{ user.gender }}</td>
                 <td>
-                    <a href="{{ path('app_user_myx_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_myx_edit', {'id': user.id}) }}">edit</a>
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="14">no records found</td>
+                <td colspan="17">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_myx_new') }}">Create new</a>
+    <a href="{{ path('app_user_new') }}">Create new</a>
 {% endblock %}

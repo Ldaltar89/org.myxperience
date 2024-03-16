@@ -7,7 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserMyxType extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -28,6 +28,11 @@ class UserMyxType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('updatedBy')
+            ->add('birthday', null, [
+                'widget' => 'single_text',
+            ])
+            ->add('user_image')
+            ->add('gender')
         ;
     }
 
