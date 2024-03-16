@@ -38,8 +38,8 @@ Table examns {
   id Uuid [primary key]
   name varachar(100) // [no] nullable
   description varchar(255) // [yes] nullable
-  score decimal // [yes] nullable
-  score_pass decimal // [yes] nullable
+  score decimal // [yes] nullable 5 number, 2 decimal
+  score_pass decimal // [yes] nullable 5 number, 2 decimal
   season_id Uuid
   examn_type_id Uuid
   isActive bool // [no] nullable
