@@ -98,7 +98,7 @@ Table user_examns {
   isDone bool // [no] nullable
   isApproved bool // [no] nullable
   isCanceled bool // [no] nullable
-  score decimal // [no] nullable
+  score decimal // [no] nullable 5 number, 2 decimal
   examn_id Uuid
   season_id Uuid
   user_id Uuid
