@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Questions{% endblock %}
+
+{% block body %}
+    <h1>Questions</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ question.id }}</td>
+            </tr>
+            <tr>
+                <th>Question</th>
+                <td>{{ question.question }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ question.description }}</td>
+            </tr>
+            <tr>
+                <th>Question_type</th>
+                <td>{{ question.questionType }}</td>
+            </tr>
+            <tr>
+                <th>Question_image</th>
+                <td>{{ question.questionImage }}</td>
+            </tr>
+            <tr>
+                <th>Question_audio</th>
+                <td>{{ question.questionAudio }}</td>
+            </tr>
+            <tr>
+                <th>Points</th>
+                <td>{{ question.points }}</td>
+            </tr>
+            <tr>
+                <th>IsActive</th>
+                <td>{{ question.isActive ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>CreatedBy</th>
+                <td>{{ question.createdBy }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ question.updatedAt ? question.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedBy</th>
+                <td>{{ question.updatedBy }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_questions_index') }}">back to list</a>
+
+    <a href="{{ path('app_questions_edit', {'id': question.id}) }}">edit</a>
+
+    {{ include('questions/_delete_form.html.twig') }}
+{% endblock %}
