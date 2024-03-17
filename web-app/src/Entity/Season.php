@@ -49,9 +49,17 @@ class Season
   #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'season', orphanRemoval: true)]
   private Collection $season;
 
+  #[ORM\OneToMany(targetEntity: Examns::class, mappedBy: 'season', orphanRemoval: true)]
+  private Collection $seasons;
+
+  #[ORM\OneToMany(targetEntity: UserExamns::class, mappedBy: 'seasonUserExamn', orphanRemoval: true)]
+  private Collection $seasonUserExamn;
+
   public function __construct()
   {
       $this->season = new ArrayCollection();
+      $this->seasons = new ArrayCollection();
+      $this->seasonUserExamn = new ArrayCollection();
   }
 
   public function getId(): ?Uuid
@@ -191,6 +199,44 @@ class Season
           // set the owning side to null (unless already changed)
           if ($season->getSeason() === $this) {
               $season->setSeason(null);
+          }
+      }
+
+      return $this;
+  }
+
+  /**
+   * @return Collection<int, Examns>
+   */
+  public function getSeasons(): Collection
+  {
+      return $this->seasons;
+  }
+
+  /**
+   * @return Collection<int, UserExamns>
+   */
+  public function getSeasonUserExamn(): Collection
+  {
+      return $this->seasonUserExamn;
+  }
+
+  public function addSeasonUserExamn(UserExamns $seasonUserExamn): static
+  {
+      if (!$this->seasonUserExamn->contains($seasonUserExamn)) {
+          $this->seasonUserExamn->add($seasonUserExamn);
+          $seasonUserExamn->setSeasonUserExamn($this);
+      }
+
+      return $this;
+  }
+
+  public function removeSeasonUserExamn(UserExamns $seasonUserExamn): static
+  {
+      if ($this->seasonUserExamn->removeElement($seasonUserExamn)) {
+          // set the owning side to null (unless already changed)
+          if ($seasonUserExamn->getSeasonUserExamn() === $this) {
+              $seasonUserExamn->setSeasonUserExamn(null);
           }
       }
 

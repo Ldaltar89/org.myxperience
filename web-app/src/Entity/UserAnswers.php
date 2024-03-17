@@ -35,6 +35,14 @@ class UserAnswers
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $updatedBy = null;
 
+    #[ORM\ManyToOne(inversedBy: 'answerUserAnswer')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Answers $answerUserAnswer = null;
+
+    #[ORM\ManyToOne(inversedBy: 'userQuestionUserAnswer')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?UserQuestions $userQuestionUserAnswer = null;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -108,6 +116,30 @@ class UserAnswers
     public function setUpdatedBy(?string $updatedBy): static
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    public function getAnswerUserAnswer(): ?Answers
+    {
+        return $this->answerUserAnswer;
+    }
+
+    public function setAnswerUserAnswer(?Answers $answerUserAnswer): static
+    {
+        $this->answerUserAnswer = $answerUserAnswer;
+
+        return $this;
+    }
+
+    public function getUserQuestionUserAnswer(): ?UserQuestions
+    {
+        return $this->userQuestionUserAnswer;
+    }
+
+    public function setUserQuestionUserAnswer(?UserQuestions $userQuestionUserAnswer): static
+    {
+        $this->userQuestionUserAnswer = $userQuestionUserAnswer;
 
         return $this;
     }

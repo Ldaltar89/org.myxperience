@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AnswersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
@@ -43,6 +45,18 @@ class Answers
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $updatedBy = null;
+
+    #[ORM\ManyToOne(inversedBy: 'QuestionAnswer')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Questions $QuestionAnswer = null;
+
+    #[ORM\OneToMany(targetEntity: UserAnswers::class, mappedBy: 'answerUserAnswer', orphanRemoval: true)]
+    private Collection $answerUserAnswer;
+
+    public function __construct()
+    {
+        $this->answerUserAnswer = new ArrayCollection();
+    }
 
     public function getId(): ?Uuid
     {
@@ -153,6 +167,48 @@ class Answers
     public function setUpdatedBy(?string $updatedBy): static
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    public function getQuestionAnswer(): ?Questions
+    {
+        return $this->QuestionAnswer;
+    }
+
+    public function setQuestionAnswer(?Questions $QuestionAnswer): static
+    {
+        $this->QuestionAnswer = $QuestionAnswer;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserAnswers>
+     */
+    public function getAnswerUserAnswer(): Collection
+    {
+        return $this->answerUserAnswer;
+    }
+
+    public function addAnswerUserAnswer(UserAnswers $answerUserAnswer): static
+    {
+        if (!$this->answerUserAnswer->contains($answerUserAnswer)) {
+            $this->answerUserAnswer->add($answerUserAnswer);
+            $answerUserAnswer->setAnswerUserAnswer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnswerUserAnswer(UserAnswers $answerUserAnswer): static
+    {
+        if ($this->answerUserAnswer->removeElement($answerUserAnswer)) {
+            // set the owning side to null (unless already changed)
+            if ($answerUserAnswer->getAnswerUserAnswer() === $this) {
+                $answerUserAnswer->setAnswerUserAnswer(null);
+            }
+        }
 
         return $this;
     }

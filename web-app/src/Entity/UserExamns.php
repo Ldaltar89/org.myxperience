@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserExamnsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
@@ -43,6 +45,26 @@ class UserExamns
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $updatedBy = null;
+
+    #[ORM\ManyToOne(inversedBy: '_userExamn')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $_userExamn = null;
+
+    #[ORM\ManyToOne(inversedBy: 'seasonUserExamn')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Season $seasonUserExamn = null;
+
+    #[ORM\ManyToOne(inversedBy: 'examnUserExamn')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Examns $examnUserExamn = null;
+
+    #[ORM\OneToMany(targetEntity: UserQuestions::class, mappedBy: 'userExamnUserQuestion', orphanRemoval: true)]
+    private Collection $userExamnUserQuestion;
+
+    public function __construct()
+    {
+        $this->userExamnUserQuestion = new ArrayCollection();
+    }
 
     public function getId(): ?Uuid
     {
@@ -153,6 +175,72 @@ class UserExamns
     public function setUpdatedBy(?string $updatedBy): static
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    public function getUserExamn(): ?User
+    {
+        return $this->_userExamn;
+    }
+
+    public function setUserExamn(?User $_userExamn): static
+    {
+        $this->_userExamn = $_userExamn;
+
+        return $this;
+    }
+
+    public function getSeasonUserExamn(): ?Season
+    {
+        return $this->seasonUserExamn;
+    }
+
+    public function setSeasonUserExamn(?Season $seasonUserExamn): static
+    {
+        $this->seasonUserExamn = $seasonUserExamn;
+
+        return $this;
+    }
+
+    public function getExamnUserExamn(): ?Examns
+    {
+        return $this->examnUserExamn;
+    }
+
+    public function setExamnUserExamn(?Examns $examnUserExamn): static
+    {
+        $this->examnUserExamn = $examnUserExamn;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserQuestions>
+     */
+    public function getUserExamnUserQuestion(): Collection
+    {
+        return $this->userExamnUserQuestion;
+    }
+
+    public function addUserExamnUserQuestion(UserQuestions $userExamnUserQuestion): static
+    {
+        if (!$this->userExamnUserQuestion->contains($userExamnUserQuestion)) {
+            $this->userExamnUserQuestion->add($userExamnUserQuestion);
+            $userExamnUserQuestion->setUserExamnUserQuestion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserExamnUserQuestion(UserQuestions $userExamnUserQuestion): static
+    {
+        if ($this->userExamnUserQuestion->removeElement($userExamnUserQuestion)) {
+            // set the owning side to null (unless already changed)
+            if ($userExamnUserQuestion->getUserExamnUserQuestion() === $this) {
+                $userExamnUserQuestion->setUserExamnUserQuestion(null);
+            }
+        }
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserQuestionsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
@@ -37,6 +39,22 @@ class UserQuestions
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $updatedBy = null;
+
+    #[ORM\ManyToOne(inversedBy: 'userExamnUserQuestion')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?UserExamns $userExamnUserQuestion = null;
+
+    #[ORM\ManyToOne(inversedBy: 'questionUserQuestion')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Questions $questionUserQuestion = null;
+
+    #[ORM\OneToMany(targetEntity: UserAnswers::class, mappedBy: 'userQuestionUserAnswer', orphanRemoval: true)]
+    private Collection $userQuestionUserAnswer;
+
+    public function __construct()
+    {
+        $this->userQuestionUserAnswer = new ArrayCollection();
+    }
 
     public function getId(): ?Uuid
     {
@@ -123,6 +141,60 @@ class UserQuestions
     public function setUpdatedBy(?string $updatedBy): static
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    public function getUserExamnUserQuestion(): ?UserExamns
+    {
+        return $this->userExamnUserQuestion;
+    }
+
+    public function setUserExamnUserQuestion(?UserExamns $userExamnUserQuestion): static
+    {
+        $this->userExamnUserQuestion = $userExamnUserQuestion;
+
+        return $this;
+    }
+
+    public function getQuestionUserQuestion(): ?Questions
+    {
+        return $this->questionUserQuestion;
+    }
+
+    public function setQuestionUserQuestion(?Questions $questionUserQuestion): static
+    {
+        $this->questionUserQuestion = $questionUserQuestion;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserAnswers>
+     */
+    public function getUserQuestionUserAnswer(): Collection
+    {
+        return $this->userQuestionUserAnswer;
+    }
+
+    public function addUserQuestionUserAnswer(UserAnswers $userQuestionUserAnswer): static
+    {
+        if (!$this->userQuestionUserAnswer->contains($userQuestionUserAnswer)) {
+            $this->userQuestionUserAnswer->add($userQuestionUserAnswer);
+            $userQuestionUserAnswer->setUserQuestionUserAnswer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserQuestionUserAnswer(UserAnswers $userQuestionUserAnswer): static
+    {
+        if ($this->userQuestionUserAnswer->removeElement($userQuestionUserAnswer)) {
+            // set the owning side to null (unless already changed)
+            if ($userQuestionUserAnswer->getUserQuestionUserAnswer() === $this) {
+                $userQuestionUserAnswer->setUserQuestionUserAnswer(null);
+            }
+        }
 
         return $this;
     }

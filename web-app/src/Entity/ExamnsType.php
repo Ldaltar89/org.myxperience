@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ExamnsTypeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
@@ -37,6 +39,14 @@ class ExamnsType
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $updatedBy = null;
+
+    #[ORM\OneToMany(targetEntity: Examns::class, mappedBy: 'examnsType', orphanRemoval: true)]
+    private Collection $examn_type;
+
+    public function __construct()
+    {
+        $this->examn_type = new ArrayCollection();
+    }
 
     public function getId(): ?Uuid
     {
@@ -123,6 +133,36 @@ class ExamnsType
     public function setUpdatedBy(?string $updatedBy): static
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Examns>
+     */
+    public function getExamnType(): Collection
+    {
+        return $this->examn_type;
+    }
+
+    public function addExamnType(Examns $examnType): static
+    {
+        if (!$this->examn_type->contains($examnType)) {
+            $this->examn_type->add($examnType);
+            $examnType->setExamnsType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExamnType(Examns $examnType): static
+    {
+        if ($this->examn_type->removeElement($examnType)) {
+            // set the owning side to null (unless already changed)
+            if ($examnType->getExamnsType() === $this) {
+                $examnType->setExamnsType(null);
+            }
+        }
 
         return $this;
     }

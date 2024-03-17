@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ExamnsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
@@ -43,6 +45,26 @@ class Examns
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $updatedBy = null;
+
+    #[ORM\ManyToOne(inversedBy: 'examn_type')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?ExamnsType $examnsType = null;
+
+    #[ORM\ManyToOne(inversedBy: 'seasons')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Season $season = null;
+
+    #[ORM\OneToMany(targetEntity: Questions::class, mappedBy: 'examns', orphanRemoval: true)]
+    private Collection $examnsQuestion;
+
+    #[ORM\OneToMany(targetEntity: UserExamns::class, mappedBy: 'examnUserExamn', orphanRemoval: true)]
+    private Collection $examnUserExamn;
+
+    public function __construct()
+    {
+        $this->examnsQuestion = new ArrayCollection();
+        $this->examnUserExamn = new ArrayCollection();
+    }
 
     public function getId(): ?Uuid
     {
@@ -153,6 +175,90 @@ class Examns
     public function setUpdatedBy(?string $updatedBy): static
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    public function getExamnsType(): ?ExamnsType
+    {
+        return $this->examnsType;
+    }
+
+    public function setExamnsType(?ExamnsType $examnsType): static
+    {
+        $this->examnsType = $examnsType;
+
+        return $this;
+    }
+
+    public function getSeason(): ?Season
+    {
+        return $this->season;
+    }
+
+    public function setSeason(?Season $season): static
+    {
+        $this->season = $season;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Questions>
+     */
+    public function getExamnsQuestion(): Collection
+    {
+        return $this->examnsQuestion;
+    }
+
+    public function addExamnsQuestion(Questions $examnsQuestion): static
+    {
+        if (!$this->examnsQuestion->contains($examnsQuestion)) {
+            $this->examnsQuestion->add($examnsQuestion);
+            $examnsQuestion->setExamns($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExamnsQuestion(Questions $examnsQuestion): static
+    {
+        if ($this->examnsQuestion->removeElement($examnsQuestion)) {
+            // set the owning side to null (unless already changed)
+            if ($examnsQuestion->getExamns() === $this) {
+                $examnsQuestion->setExamns(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserExamns>
+     */
+    public function getExamnUserExamn(): Collection
+    {
+        return $this->examnUserExamn;
+    }
+
+    public function addExamnUserExamn(UserExamns $examnUserExamn): static
+    {
+        if (!$this->examnUserExamn->contains($examnUserExamn)) {
+            $this->examnUserExamn->add($examnUserExamn);
+            $examnUserExamn->setExamnUserExamn($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExamnUserExamn(UserExamns $examnUserExamn): static
+    {
+        if ($this->examnUserExamn->removeElement($examnUserExamn)) {
+            // set the owning side to null (unless already changed)
+            if ($examnUserExamn->getExamnUserExamn() === $this) {
+                $examnUserExamn->setExamnUserExamn(null);
+            }
+        }
 
         return $this;
     }

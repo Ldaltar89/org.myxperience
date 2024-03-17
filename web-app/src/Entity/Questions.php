@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\QuestionsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
@@ -49,6 +51,22 @@ class Questions
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $updatedBy = null;
+
+    #[ORM\ManyToOne(inversedBy: 'examnsQuestion')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Examns $examns = null;
+
+    #[ORM\OneToMany(targetEntity: Answers::class, mappedBy: 'QuestionAnswer', orphanRemoval: true)]
+    private Collection $QuestionAnswer;
+
+    #[ORM\OneToMany(targetEntity: UserQuestions::class, mappedBy: 'questionUserQuestion', orphanRemoval: true)]
+    private Collection $questionUserQuestion;
+
+    public function __construct()
+    {
+        $this->QuestionAnswer = new ArrayCollection();
+        $this->questionUserQuestion = new ArrayCollection();
+    }
 
     public function getId(): ?Uuid
     {
@@ -183,6 +201,78 @@ class Questions
     public function setUpdatedBy(?string $updatedBy): static
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    public function getExamns(): ?Examns
+    {
+        return $this->examns;
+    }
+
+    public function setExamns(?Examns $examns): static
+    {
+        $this->examns = $examns;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Answers>
+     */
+    public function getQuestionAnswer(): Collection
+    {
+        return $this->QuestionAnswer;
+    }
+
+    public function addQuestionAnswer(Answers $questionAnswer): static
+    {
+        if (!$this->QuestionAnswer->contains($questionAnswer)) {
+            $this->QuestionAnswer->add($questionAnswer);
+            $questionAnswer->setQuestionAnswer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestionAnswer(Answers $questionAnswer): static
+    {
+        if ($this->QuestionAnswer->removeElement($questionAnswer)) {
+            // set the owning side to null (unless already changed)
+            if ($questionAnswer->getQuestionAnswer() === $this) {
+                $questionAnswer->setQuestionAnswer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserQuestions>
+     */
+    public function getQuestionUserQuestion(): Collection
+    {
+        return $this->questionUserQuestion;
+    }
+
+    public function addQuestionUserQuestion(UserQuestions $questionUserQuestion): static
+    {
+        if (!$this->questionUserQuestion->contains($questionUserQuestion)) {
+            $this->questionUserQuestion->add($questionUserQuestion);
+            $questionUserQuestion->setQuestionUserQuestion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestionUserQuestion(UserQuestions $questionUserQuestion): static
+    {
+        if ($this->questionUserQuestion->removeElement($questionUserQuestion)) {
+            // set the owning side to null (unless already changed)
+            if ($questionUserQuestion->getQuestionUserQuestion() === $this) {
+                $questionUserQuestion->setQuestionUserQuestion(null);
+            }
+        }
 
         return $this;
     }
