@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ExamnsType{% endblock %}
+
+{% block body %}
+    <h1>ExamnsType</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ examns_type.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ examns_type.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ examns_type.description }}</td>
+            </tr>
+            <tr>
+                <th>IsActive</th>
+                <td>{{ examns_type.isActive ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ examns_type.createdAt ? examns_type.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>CreatedBy</th>
+                <td>{{ examns_type.createdBy }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ examns_type.updatedAt ? examns_type.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedBy</th>
+                <td>{{ examns_type.updatedBy }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_examns_types_index') }}">back to list</a>
+
+    <a href="{{ path('app_examns_types_edit', {'id': examns_type.id}) }}">edit</a>
+
+    {{ include('examns_types/_delete_form.html.twig') }}
+{% endblock %}

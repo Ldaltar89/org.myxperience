@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}University index{% endblock %}
+
+{% block body %}
+    <h1>University index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Location</th>
+                <th>Website</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>IsActive</th>
+                <th>CreatedAt</th>
+                <th>CreatedBy</th>
+                <th>UpdatedAt</th>
+                <th>UpdatedBy</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for university in universities %}
+            <tr>
+                <td>{{ university.id }}</td>
+                <td>{{ university.name }}</td>
+                <td>{{ university.type }}</td>
+                <td>{{ university.location }}</td>
+                <td>{{ university.website }}</td>
+                <td>{{ university.email }}</td>
+                <td>{{ university.phone }}</td>
+                <td>{{ university.isActive ? 'Yes' : 'No' }}</td>
+                <td>{{ university.createdAt ? university.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ university.createdBy }}</td>
+                <td>{{ university.updatedAt ? university.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ university.updatedBy }}</td>
+                <td>
+                    <a href="{{ path('app_university_show', {'id': university.id}) }}">show</a>
+                    <a href="{{ path('app_university_edit', {'id': university.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_university_new') }}">Create new</a>
+{% endblock %}
