@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -72,6 +74,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $gender = null;
+
+    #[ORM\ManyToOne(inversedBy: 'season')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Season $season = null;
+
+    #[ORM\ManyToOne(inversedBy: 'University')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?University $university = null;
+
+    #[ORM\OneToMany(targetEntity: UserExamns::class, mappedBy: '_userExamn', orphanRemoval: true)]
+    private Collection $_userExamn;
+
+    public function __construct()
+    {
+        $this->_userExamn = new ArrayCollection();
+    }
 
     public function getId(): ?Uuid
     {
@@ -288,6 +306,60 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setGender(?string $gender): static
     {
         $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getSeason(): ?Season
+    {
+        return $this->season;
+    }
+
+    public function setSeason(?Season $season): static
+    {
+        $this->season = $season;
+
+        return $this;
+    }
+
+    public function getUniversity(): ?University
+    {
+        return $this->university;
+    }
+
+    public function setUniversity(?University $university): static
+    {
+        $this->university = $university;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserExamns>
+     */
+    public function getUserExamn(): Collection
+    {
+        return $this->_userExamn;
+    }
+
+    public function addUserExamn(UserExamns $userExamn): static
+    {
+        if (!$this->_userExamn->contains($userExamn)) {
+            $this->_userExamn->add($userExamn);
+            $userExamn->setUserExamn($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserExamn(UserExamns $userExamn): static
+    {
+        if ($this->_userExamn->removeElement($userExamn)) {
+            // set the owning side to null (unless already changed)
+            if ($userExamn->getUserExamn() === $this) {
+                $userExamn->setUserExamn(null);
+            }
+        }
 
         return $this;
     }

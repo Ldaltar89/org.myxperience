@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SeasonRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
@@ -43,6 +45,22 @@ class Season
 
   #[ORM\Column(length: 100, nullable: true)]
   private ?string $updatedBy = null;
+
+  #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'season', orphanRemoval: true)]
+  private Collection $season;
+
+  #[ORM\OneToMany(targetEntity: Examns::class, mappedBy: 'season', orphanRemoval: true)]
+  private Collection $seasons;
+
+  #[ORM\OneToMany(targetEntity: UserExamns::class, mappedBy: 'seasonUserExamn', orphanRemoval: true)]
+  private Collection $seasonUserExamn;
+
+  public function __construct()
+  {
+      $this->season = new ArrayCollection();
+      $this->seasons = new ArrayCollection();
+      $this->seasonUserExamn = new ArrayCollection();
+  }
 
   public function getId(): ?Uuid
   {
@@ -155,5 +173,73 @@ class Season
     $this->updatedBy = $updatedBy;
 
     return $this;
+  }
+
+  /**
+   * @return Collection<int, User>
+   */
+  public function getSeason(): Collection
+  {
+      return $this->season;
+  }
+
+  public function addSeason(User $season): static
+  {
+      if (!$this->season->contains($season)) {
+          $this->season->add($season);
+          $season->setSeason($this);
+      }
+
+      return $this;
+  }
+
+  public function removeSeason(User $season): static
+  {
+      if ($this->season->removeElement($season)) {
+          // set the owning side to null (unless already changed)
+          if ($season->getSeason() === $this) {
+              $season->setSeason(null);
+          }
+      }
+
+      return $this;
+  }
+
+  /**
+   * @return Collection<int, Examns>
+   */
+  public function getSeasons(): Collection
+  {
+      return $this->seasons;
+  }
+
+  /**
+   * @return Collection<int, UserExamns>
+   */
+  public function getSeasonUserExamn(): Collection
+  {
+      return $this->seasonUserExamn;
+  }
+
+  public function addSeasonUserExamn(UserExamns $seasonUserExamn): static
+  {
+      if (!$this->seasonUserExamn->contains($seasonUserExamn)) {
+          $this->seasonUserExamn->add($seasonUserExamn);
+          $seasonUserExamn->setSeasonUserExamn($this);
+      }
+
+      return $this;
+  }
+
+  public function removeSeasonUserExamn(UserExamns $seasonUserExamn): static
+  {
+      if ($this->seasonUserExamn->removeElement($seasonUserExamn)) {
+          // set the owning side to null (unless already changed)
+          if ($seasonUserExamn->getSeasonUserExamn() === $this) {
+              $seasonUserExamn->setSeasonUserExamn(null);
+          }
+      }
+
+      return $this;
   }
 }

@@ -38,8 +38,8 @@ Table examns {
   id Uuid [primary key]
   name varachar(100) // [no] nullable
   description varchar(255) // [yes] nullable
-  score decimal // [yes] nullable
-  score_pass decimal // [yes] nullable
+  score decimal // [yes] nullable 5 number, 2 decimal
+  score_pass decimal // [yes] nullable 5 number, 2 decimal
   season_id Uuid
   examn_type_id Uuid
   isActive bool // [no] nullable
@@ -56,7 +56,7 @@ Ref: examns.examn_type_id > examns_type.id
 Table questions {
   id Uuid [primary key]
   question varachar(255) // [no] nullable
-  descrption varchar(255) // [yes] nullable
+  description varchar(255) // [yes] nullable
   /* question_type: define si la respuesta
      es input(text) o choices (radiobutton)
      INPUT | CHOICES
@@ -98,7 +98,7 @@ Table user_examns {
   isDone bool // [no] nullable
   isApproved bool // [no] nullable
   isCanceled bool // [no] nullable
-  score decimal // [no] nullable
+  score decimal // [no] nullable 5 number, 2 decimal
   examn_id Uuid
   season_id Uuid
   user_id Uuid

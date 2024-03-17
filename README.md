@@ -149,3 +149,9 @@ symfony console make:form SeasonFormType Season
 # composer run-script cache:clear
 symfony console cache:clear
 ```
+
+#### after downloading changes
+
+```bash
+composer update
+```
