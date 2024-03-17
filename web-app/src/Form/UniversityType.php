@@ -6,6 +6,7 @@ use App\Entity\University;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class UniversityType extends AbstractType
 {
@@ -18,16 +19,7 @@ class UniversityType extends AbstractType
             ->add('website')
             ->add('email')
             ->add('phone')
-            ->add('isActive')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('createdBy')
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedBy')
-        ;
+            ->add('isActive', HiddenType::class, ['data' => true,]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

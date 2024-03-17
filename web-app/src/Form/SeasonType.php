@@ -18,9 +18,7 @@ class SeasonType extends AbstractType
       ->add('season_year', null,)
       ->add('description', null,)
       ->add('image', null,)
-      ->add('isActive', HiddenType::class, ['data' => true,])
-      ->add('createdBy', HiddenType::class,)
-      ->add('updatedBy', HiddenType::class,);
+      ->add('isActive', HiddenType::class, ['data' => true,]);
   }
 
   public function configureOptions(OptionsResolver $resolver): void

@@ -30,6 +30,8 @@ class UniversityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $university->setCreatedBy('system');
+            $university->setCreatedAt(new \DateTime());
             $entityManager->persist($university);
             $entityManager->flush();
 
@@ -57,6 +59,8 @@ class UniversityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $university->setUpdatedBy('system');
+            $university->setUpdatedAt(new \DateTime());
             $entityManager->flush();
 
             return $this->redirectToRoute('app_university_index', [], Response::HTTP_SEE_OTHER);
