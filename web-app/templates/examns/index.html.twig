@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Examns index{% endblock %}
+
+{% block body %}
+    <h1>Examns index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Score</th>
+                <th>Score_pass</th>
+                <th>IsActive</th>
+                <th>CreatedAt</th>
+                <th>CreatedBy</th>
+                <th>UpdatedAt</th>
+                <th>UpdatedBy</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for examn in examns %}
+            <tr>
+                <td>{{ examn.id }}</td>
+                <td>{{ examn.name }}</td>
+                <td>{{ examn.description }}</td>
+                <td>{{ examn.score }}</td>
+                <td>{{ examn.scorePass }}</td>
+                <td>{{ examn.isActive ? 'Yes' : 'No' }}</td>
+                <td>{{ examn.createdAt ? examn.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ examn.createdBy }}</td>
+                <td>{{ examn.updatedAt ? examn.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ examn.updatedBy }}</td>
+                <td>
+                    <a href="{{ path('app_examns_show', {'id': examn.id}) }}">show</a>
+                    <a href="{{ path('app_examns_edit', {'id': examn.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_examns_new') }}">Create new</a>
+{% endblock %}
