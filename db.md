@@ -56,7 +56,7 @@ Ref: examns.examn_type_id > examns_type.id
 Table questions {
   id Uuid [primary key]
   question varachar(255) // [no] nullable
-  descrption varchar(255) // [yes] nullable
+  description varchar(255) // [yes] nullable
   /* question_type: define si la respuesta
      es input(text) o choices (radiobutton)
      INPUT | CHOICES
