@@ -22,6 +22,10 @@ class QuestionsType extends AbstractType
             ->add('question_image')
             ->add('question_audio')
             ->add('points')
+            ->add('examns', EntityType::class, [
+                'class' => Examns::class,
+                'choice_label' => 'name',
+            ])
             ->add('isActive', HiddenType::class, ['data' => true,]);
     }
 

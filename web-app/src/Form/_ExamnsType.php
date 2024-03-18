@@ -21,6 +21,14 @@ class _ExamnsType extends AbstractType
             ->add('description')
             ->add('score')
             ->add('score_pass')
+            ->add('examns_type', EntityType::class, [
+                'class' => ExamnsType::class,
+                'choice_label' => 'name',
+            ])
+            ->add('season', EntityType::class, [
+                'class' => Season::class,
+                'choice_label' => 'name',
+            ])
             ->add('isActive', HiddenType::class, ['data' => true,]);
     }
 

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/examns/types')]
+#[Route('/examns-types')]
 class ExamnsTypesController extends AbstractController
 {
     #[Route('/', name: 'app_examns_types_index', methods: ['GET'])]

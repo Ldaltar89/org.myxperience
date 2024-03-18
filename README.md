@@ -18,7 +18,7 @@ symfony check:requirements
 
 > If it meets the requirements, you will see the following output in the terminal.
 
-OK]  
+OK 
  Your system is ready to run Symfony projects
 
 ### Create a new symfony

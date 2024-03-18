@@ -19,7 +19,10 @@ class AnswersType extends AbstractType
             ->add('question_image')
             ->add('question_audio')
             ->add('correct')
-            ->add('isActive')
+            ->add('question_answer', EntityType::class, [
+                'class' => Questions::class,
+                'choice_label' => 'question',
+            ])
             ->add('isActive', HiddenType::class, ['data' => true,]);
     }
 
