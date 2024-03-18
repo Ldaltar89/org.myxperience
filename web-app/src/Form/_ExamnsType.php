@@ -9,6 +9,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+
 
 class _ExamnsType extends AbstractType
 {
@@ -19,24 +21,7 @@ class _ExamnsType extends AbstractType
             ->add('description')
             ->add('score')
             ->add('score_pass')
-            ->add('isActive')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('createdBy')
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedBy')
-            ->add('examnsType', EntityType::class, [
-                'class' => self::class,
-                'choice_label' => 'id',
-            ])
-            ->add('season', EntityType::class, [
-                'class' => Season::class,
-                'choice_label' => 'id',
-            ])
-        ;
+            ->add('isActive', HiddenType::class, ['data' => true,]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

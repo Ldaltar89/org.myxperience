@@ -6,6 +6,8 @@ use App\Entity\ExamnsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+
 
 class ExamnsTypeType extends AbstractType
 {
@@ -14,16 +16,7 @@ class ExamnsTypeType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('isActive')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('createdBy')
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedBy')
-        ;
+            ->add('isActive', HiddenType::class, ['data' => true,]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

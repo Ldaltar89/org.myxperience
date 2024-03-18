@@ -30,6 +30,8 @@ class QuestionsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $question->setCreatedBy('system');
+            $question->setCreatedAt(new \DateTime());
             $entityManager->persist($question);
             $entityManager->flush();
 
@@ -57,6 +59,8 @@ class QuestionsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $question->setUpdatedBy('system');
+            $question->setUpdatedAt(new \DateTime());
             $entityManager->flush();
 
             return $this->redirectToRoute('app_questions_index', [], Response::HTTP_SEE_OTHER);

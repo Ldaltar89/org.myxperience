@@ -30,6 +30,8 @@ class ExamnsTypesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $examnsType->setCreatedBy('system');
+            $examnsType->setCreatedAt(new \DateTime());
             $entityManager->persist($examnsType);
             $entityManager->flush();
 
@@ -57,6 +59,8 @@ class ExamnsTypesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $examnsType->setUpdatedBy('system');
+            $examnsType->setUpdatedAt(new \DateTime());
             $entityManager->flush();
 
             return $this->redirectToRoute('app_examns_types_index', [], Response::HTTP_SEE_OTHER);
