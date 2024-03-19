@@ -10,9 +10,12 @@ RUN apt update \
 
 WORKDIR /var/www/symfony_docker
 
+RUN apt install -y nodejs npm
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN curl -sS https://get.symfony.com/cli/installer | bash
 RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 RUN git config --global user.email "alexanderwspenafiel@gmail.com" \ 
     && git config --global user.name "Alexander Samaniego"
+
+
