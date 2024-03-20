@@ -23,10 +23,10 @@ class Answers
     private ?string $answer = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $question_image = null;
+    private ?string $answer_image = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $question_audio = null;
+    private ?string $answer_audio = null;
 
     #[ORM\Column]
     private ?bool $correct = null;
@@ -75,26 +75,26 @@ class Answers
         return $this;
     }
 
-    public function getQuestionImage(): ?string
+    public function getAnswerImage(): ?string
     {
-        return $this->question_image;
+        return $this->answer_image;
     }
 
-    public function setQuestionImage(?string $question_image): static
+    public function setAnswerImage(?string $answer_image): static
     {
-        $this->question_image = $question_image;
+        $this->answer_image = $answer_image;
 
         return $this;
     }
 
-    public function getQuestionAudio(): ?string
+    public function getAnswerAudio(): ?string
     {
-        return $this->question_audio;
+        return $this->answer_audio;
     }
 
-    public function setQuestionAudio(?string $question_audio): static
+    public function setAnswerAudio(?string $answer_audio): static
     {
-        $this->question_audio = $question_audio;
+        $this->answer_audio = $answer_audio;
 
         return $this;
     }

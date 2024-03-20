@@ -16,8 +16,8 @@ class AnswersType extends AbstractType
     {
         $builder
             ->add('answer')
-            ->add('question_image')
-            ->add('question_audio')
+            ->add('answer_image')
+            ->add('answer_audio')
             ->add('correct')
             ->add('question_answer', EntityType::class, [
                 'class' => Questions::class,

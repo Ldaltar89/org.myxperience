@@ -10,8 +10,8 @@
             <tr>
                 <th>Id</th>
                 <th>Answer</th>
-                <th>Question_image</th>
-                <th>Question_audio</th>
+                <th>Answer_image</th>
+                <th>Answer_audio</th>
                 <th>Correct</th>
                 <th>IsActive</th>
                 <th>CreatedAt</th>
@@ -26,8 +26,8 @@
             <tr>
                 <td>{{ answer.id }}</td>
                 <td>{{ answer.answer }}</td>
-                <td>{{ answer.questionImage }}</td>
-                <td>{{ answer.questionAudio }}</td>
+                <td>{{ answer.answerImage }}</td>
+                <td>{{ answer.answerAudio }}</td>
                 <td>{{ answer.correct ? 'Yes' : 'No' }}</td>
                 <td>{{ answer.isActive ? 'Yes' : 'No' }}</td>
                 <td>{{ answer.createdAt ? answer.createdAt|date('Y-m-d H:i:s') : '' }}</td>
