@@ -30,6 +30,8 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setCreatedBy('system');
+            $user->setCreatedAt(new \DateTime());
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -57,6 +59,8 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setUpdatedBy('system');
+            $user->setUpdatedAt(new \DateTime());
             $entityManager->flush();
 
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);

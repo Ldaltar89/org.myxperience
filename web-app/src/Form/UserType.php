@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Season;
+use App\Entity\University;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -25,6 +26,10 @@ class UserType extends AbstractType
             ])
             ->add('season', EntityType::class, [
                 'class' => Season::class,
+                'choice_label' => 'name',
+            ])
+            ->add('university', EntityType::class, [
+                'class' => University::class,
                 'choice_label' => 'name',
             ])
             ->add('user_image')

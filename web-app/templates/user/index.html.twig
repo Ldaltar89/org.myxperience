@@ -17,6 +17,8 @@
                 <th>Lastname</th>
                 <th>Dni</th>
                 <th>Season</th>
+                <th>University</th>
+                <th>Image</th>
                 <th>IsActive</th>
                 <th>CreatedAt</th>
                 <th>CreatedBy</th>
@@ -40,6 +42,8 @@
                 <td>{{ user.lastname }}</td>
                 <td>{{ user.dni }}</td>
                 <td>{{ user.season.name }}</td>
+                <td>{{ user.university.name }}</td>
+                {# <td>{{ user.user_image }}</td> #}
                 <td>{{ user.isActive ? 'Yes' : 'No' }}</td>
                 <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ user.createdBy }}</td>
