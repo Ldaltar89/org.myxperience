@@ -4,52 +4,55 @@
 {% endblock %}
 
 {% block body %}
-	<section class="vh-100" style="background-color: #ab47bc">
-		<div class="container py-5 h-100">
-			<div class="row d-flex justify-content-center align-items-center h-100">
-				<div class="col col-xl-10">
-					<div class="card" style="border-radius: 1rem;">
+	<section class="vh-80 d-flex justify-content-center align-items-center" style="background-color: #ab47bc;">
+		<div class="container py-5">
+			<div class="row">
+				<div class="col-md-8 col-lg-10 mx-auto">
+					<div class="card rounded-3" style="border-radius: 1rem;">
 						<div class="row g-0">
-							<div class="col-md-6 col-lg-5 d-none d-md-block">
-								<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;"/>
+							<div class="col-md-6">
+								<img src="{{ asset('img/imagen_login.jpg') }}" alt="formulario de inicio de sesión" class="img-fluid rounded-start" style="border-radius: 1rem 0 0 1rem;"/>
 							</div>
-							<div class="col-md-6 col-lg-7 d-flex align-items-center">
+							<div class="col-md-6">
 								<div class="card-body p-4 p-lg-5 text-black">
 									<form method="post">
 										{% if error %}
 											<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 										{% endif %}
-										<div class="text-center">
-											<img src="{{ asset('img/image002.png') }}" width="350">
-										</div>
-										<div class="d-flex align-items-center mb-3 pb-1">
-											<span class="h1 fw-bold mb-0">Please sign in</span>
+
+										<div class="text-center mb-3">
+											<img src="{{ asset('img/imagen_logo.png') }}" width="350">
 										</div>
 
-										<h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
+										<div class="d-flex align-items-center mb-3 pb-1">
+											<span class="h1 fw-bold mb-0">Inicia sesión</span>
+										</div>
+
+										<h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Ingresa a tu cuenta</h5>
+
 										<div class="form-group">
-											<label for="inputEmail">Email</label>
+											<label for="inputEmail">Correo electrónico</label>
 											<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mx-auto my-2" autocomplete="email" required autofocus>
 										</div>
+
 										<div class="form-group">
-											<label for="inputPassword">Password</label>
+											<label for="inputPassword">Contraseña</label>
 											<input type="password" name="password" id="inputPassword" class="form-control mx-auto my-2" autocomplete="current-password" required>
 										</div>
+
 										<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-										<div>
-											<p class = "small">Don't have account? <a href="{{ path('app_register')}}">Create an account</a></p>
+
+										<div class="d-flex justify-content-between align-items-center mb-3">
+											<p class="small">¿No tienes cuenta?
+												<a href="{{ path('app_register')}}">Crea una cuenta</a>
+											</p>
+											<div class="form-check form-switch">
+												<input class="form-check-input" type="checkbox" name="_remember_me" id="rememberMe">
+												<label class="form-check-label" for="rememberMe">Recordarme</label>
+											</div>
 										</div>
 
-										<div class="checkbox mb-3">
-											<label>
-												<input type="checkbox" name="_remember_me">
-												Remember me
-											</label>
-										</div>
-
-										<button class="btn btn-lg btn-primary auto" type="submit">
-											Sign in
-										</button>
+										<button class="btn btn-lg btn-primary auto" type="submit">Iniciar sesión</button>
 
 									</form>
 								</div>
@@ -61,42 +64,63 @@
 		</div>
 	</section>
 
-	{# <div class="container mt-5">
-								<div class="row d-flex justify-content-center">
-									<div class="col-md-6">
-										<div class="card">
-											<div class="card-header">
-												<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+	{# <section class="vh-100" style="background-color: #ab47bc">
+			<div class="container py-5 h-100">
+				<div class="row d-flex justify-content-center align-items-center h-100">
+					<div class="col col-xl-10">
+						<div class="card" style="border-radius: 1rem;">
+							<div class="row g-0">
+								<div class="col-md-6 col-lg-5 d-none d-md-block">
+									<img src="{{ asset('img/imagen_login.jpg') }}" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;"/>
+								</div>
+								<div class="col-md-6 col-lg-7 d-flex align-items-center">
+									<div class="card-body p-4 p-lg-5 text-black">
+										<form method="post">
+											{% if error %}
+												<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+											{% endif %}
+											<div class="text-center">
+												<img src="{{ asset('img/imagen_logo.png') }}" width="350">
 											</div>
-											<div class="card-body">
-												<form method="post">
-													{% if error %}
-														<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-													{% endif %}
-													<div class="form-group">
-														<label for="inputEmail">Email</label>
-														<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mx-auto my-2" autocomplete="email" required autofocus>
-													</div>
-													<div class="form-group">
-														<label for="inputPassword">Password</label>
-														<input type="password" name="password" id="inputPassword" class="form-control mx-auto my-2" autocomplete="current-password" required>
-													</div>
-													<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-						
-													<div class="checkbox mb-3">
-														<label>
-															<input type="checkbox" name="_remember_me">
-															Remember me
-														</label>
-													</div>
-						
-													<button class="btn btn-lg btn-primary auto" type="submit">
-														Sign in
-													</button>
-												</form>
+											<div class="d-flex align-items-center mb-3 pb-1">
+												<span class="h1 fw-bold mb-0">Please sign in</span>
 											</div>
-										</div>
+	
+											<h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
+											<div class="form-group">
+												<label for="inputEmail">Email</label>
+												<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mx-auto my-2" autocomplete="email" required autofocus>
+											</div>
+											<div class="form-group">
+												<label for="inputPassword">Password</label>
+												<input type="password" name="password" id="inputPassword" class="form-control mx-auto my-2" autocomplete="current-password" required>
+											</div>
+											<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+											<div>
+												<p class = "small">Don't have account? <a href="{{ path('app_register')}}">Create an account</a></p>
+											</div>
+	
+											<div class="checkbox mb-3">
+												<label>
+													<input type="checkbox" name="_remember_me">
+													Remember me
+												</label>
+											</div>
+	
+											<button class="btn btn-lg btn-primary auto" type="submit">
+												Sign in
+											</button>
+	
+										</form>
 									</div>
 								</div>
-							</div> #}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section> #}
+
+
 {% endblock %}

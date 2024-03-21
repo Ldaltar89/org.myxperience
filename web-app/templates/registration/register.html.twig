@@ -4,34 +4,51 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<div class="mx-auto">
-			{% for flash_error in app.flashes('verify_email_error') %}
-				<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-			{% endfor %}
+	<section class="vh-100" style="background-color: #ab47bc">
+		<div class="container py-5 h-100">
+			<div class="row d-flex justify-content-center align-items-center h-100">
+				<div class="col col-xl-10">
+					<div class="card" style="border-radius: 1rem;">
+						<div class="row g-0">
+							<div class="col-md-6 col-lg-5 d-none d-md-block">
+								<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;"/>
+							</div>
+							<div class="col-md-6 col-lg-7 d-flex align-items-center">
+								<div class="card-body p-4 p-lg-5 text-black">
 
-			<h1>Register</h1>
+									{% for flash_error in app.flashes('verify_email_error') %}
+										<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+									{% endfor %}
 
-			{{ form_errors(registrationForm) }}
+									<h1>Register</h1>
 
-			{{ form_start(registrationForm) }}
-			{{ form_row(registrationForm.email) }}
-			{{ form_row(registrationForm.plainPassword, {
+									{{ form_errors(registrationForm) }}
+
+									{{ form_start(registrationForm) }}
+									{{ form_row(registrationForm.email) }}
+									{{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
-		{{ form_row(registrationForm.name) }}
-		{{ form_row(registrationForm.lastname) }}
-		{{ form_row(registrationForm.dni) }}
-		{{ form_row(registrationForm.birthday) }}
-		{{ form_row(registrationForm.season) }}
-		{{ form_row(registrationForm.university) }}
-		{{ form_row(registrationForm.user_image) }}
-		{{ form_row(registrationForm.gender) }}
-			{{ form_row(registrationForm.agreeTerms) }}
+									{{ form_row(registrationForm.name) }}
+									{{ form_row(registrationForm.lastname) }}
+									{{ form_row(registrationForm.dni) }}
+									{{ form_row(registrationForm.birthday) }}
+									{{ form_row(registrationForm.season) }}
+									{{ form_row(registrationForm.university) }}
+									{{ form_row(registrationForm.user_image) }}
+									{{ form_row(registrationForm.gender) }}
+									{{ form_row(registrationForm.agreeTerms) }}
 
-			<button type="submit" class="btn btn-primary my-3">Register</button>
-			{{ form_end(registrationForm) }}
+									<button type="submit" class="btn btn-primary my-3">Register</button>
+									{{ form_end(registrationForm) }}
 
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
+	</section>
 {% endblock %}
