@@ -22,6 +22,6 @@ class SetUserRolesCommand extends Command
        $user = $this-> userRepository->findOneByEmail('leonardo220389@hotmail.com');
        $user->setRoles(['ROLE_ADMIN']);
        $this->userRepository->add($user);
-       return Command::SUCCESS;
+    return Command::SUCCESS;
     }
 }
