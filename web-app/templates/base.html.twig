@@ -16,7 +16,7 @@
 	</head>
 	<body>
 		<header>
-			<nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">
+			<nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark ">
 				<div
 					class="container-fluid">
 					{# offcanvas trigger #}
@@ -66,32 +66,67 @@
 			</nav>
 		</header>
 		<div>
-			{# offcanvas #}
-			<div class="offcanvas offcanvas-start bg-dark text-white sidebar-nav" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-				<div class="offcanvas-body p-0">
-					<nav class="navbar-dark">
-						<ul class="navbar-nav">
-							<li>
-								<div class="text-muted small fw-bold text-uppercase px-3">
-									CORE
-								</div>
-							</li>
-							<li>
-								<a href="{{ path('app_user_index') }}" class="nav-link px-3 active">
-									<span class="me-3">
-										<i class="bi bi-people-fill"></i>
-									</span>
-									<span>Usuarios</span>
-								</a>
-							</li>
-						</ul>
+			<div class="container-fluid">>
+				{# offcanvas #}
+				<div class="offcanvas offcanvas-start bg-dark text-white sidebar-nav" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+					<div class="offcanvas-body p-0">
+						<nav class="navbar-dark">
+							<ul class="navbar-nav">
+								<li>
+									<div class="text-muted small fw-bold text-uppercase px-3">
+										CORE
+									</div>
+								</li>
+								<li>
+									<a href="{{ path('app_user_index') }}" class="nav-link px-3 active">
+										<span class="me-3">
+											<i class="bi bi-people-fill"></i>
+										</span>
+										<span>Usuarios</span>
+									</a>
+								</li>
+								<li>
+									<hr class="dropdow-divider"/>
+								</li>
+								<li>
+									<div class="text-muted small fw-bold text-uppercase px-3">
+										INTERFACE
+									</div>
+								</li>
+								<li>
+									<a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+										<span class="me-3">
+											<i class="bi bi-signpost-split-fill"></i>
+										</span>
+										<span>Season</span>
+										<span class="right-icon ms-auto">
+											<i class="bi bi-chevron-down"></i>
+										</span>
+									</a>
+									<div class="collapse" id="collapseExample">
+										<div>
+											<ul class="navbar-nav ps-3">
+												<li>
+													<a href="#" class="nav-link px-3">
+														<span class="me-3">
+															<i class="bi bi-mortarboard-fill"></i>
+														</span>
+														<span>University</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</li>
+							</ul>
 
-					</nav>
+						</nav>
+					</div>
 				</div>
-			</div>
-			{# offcanvas #}
-			<div>
-				{% block content %}{% endblock %}
+				{# offcanvas #}
+				<div>
+					{% block content %}{% endblock %}
+				</div>
 			</div>
 			<footer>
 				{% block footer %}{% endblock %}

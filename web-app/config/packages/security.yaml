@@ -51,8 +51,8 @@ security:
     access_control:
         - { path: ^/myx/init, roles: ROLE_USER }
         - { path: ^/myx/user, roles: ROLE_USER }
-        - { path: ^/myx/season, roles: ROLE_ADMIN }
-        - { path: ^/myx/university, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/myx/season, roles: ROLE_USER }
+        - { path: ^/myx/university, roles: ROLE_ADMIN }
         - { path: ^/myx/login, roles: PUBLIC_ACCESS }
         # - { path: ^/register, roles: PUBLIC_ACCESS }
 
