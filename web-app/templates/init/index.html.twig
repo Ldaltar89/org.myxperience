@@ -1,126 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello InitController!
+{% block title %}Página de inicio{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/init.css') }}">
 {% endblock %}
+    {% block content %}
+    <!-- Contenido de la página de inicio con estilos en línea -->
+    <div class="example-wrapper">
+			<h1>Hello
+				{{ controller_name }}! ✅</h1>
 
-{% block body %}
-	{# {% if app.user %}
-		<div class="mb-3">
-			You are logged in as
-			{{ app.user.name }}
-			{{ app.user.lastname }},
-			<a href="{{ path('app_logout') }}">Logout</a>
+			This friendly message is coming from:
+			<ul>
+				<li>Your controller at
+					<code>/var/www/symfony_docker/src/Controller/InitController.php</code>
+				</li>
+				<li>Your template at
+					<code>/var/www/symfony_docker/templates/init/index.html.twig</code>
+				</li>
+			</ul>
 		</div>
-	{% endif %} #}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-
-        :root {
-            --offcanvas-width: 270px;
-        }
-
-        .sidebar-nav {
-            width: var(--offcanvas-width);
-        }
-
-	</style>
-
-	{# <div class="example-wrapper">
-				    <h1>Hello {{ controller_name }}! ✅</h1>
-				
-				    This friendly message is coming from:
-				    <ul>
-				        <li>Your controller at <code>/var/www/symfony_docker/src/Controller/InitController.php</code></li>
-				        <li>Your template at <code>/var/www/symfony_docker/templates/init/index.html.twig</code></li>
-				    </ul>
-				</div> #}
-
-	<nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">
-		<div class="container-fluid">
-			<a class="navbar-brand fw-bold" href="#">Xperiences</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<form class="d-flex ms-auto" role="search">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-						<button class="btn btn-primary" type="button" id="button-addon2">
-							<i class="bi bi-search"></i>
-						</button>
-					</div>
-				</form>
-				<ul class="navbar-nav mb-2 mb-lg-0">
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							<i class="bi bi-person-fill"></i>
-						</a>
-						<ul class="dropdown-menu dropdown-menu-end">
-							<li class="text-center list-inline">
-                                <span class="text-dark fw-bold">Bienvenido</span>
-							</li>
-							<li class="text-center list-inline">
-								{% if app.user %}
-									<a class="text-dark mb-3 text-decoration-none ">
-										{{ app.user.name }}
-										{{ app.user.lastname }}
-									</a>
-								{% endif %}
-							</li>
-							<li><hr class="dropdown-divider"></li>
-							<li class="text-center list-inline">
-								<a href="{{ path('app_logout') }}" class="text-dark text-decoration-none">Logout</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
-	{# offcanvas #}
-	<a class="btn btn-primary" data-bs-toggle="offcanvas" href="{{ path('app_user_index')}}" role="button" aria-controls="offcanvasExample">
-		Link with href
-	</a>
-	<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-		Button with data-bs-target
-	</button>
-
-	<div class="offcanvas offcanvas-start sidebar-nav" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-		<div class="offcanvas-header">
-			<h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
-			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-		</div>
-		<div class="offcanvas-body">
-			<div>
-				Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
-			</div>
-			<div class="dropdown mt-3">
-				<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-					Dropdown button
-				</button>
-				<ul class="dropdown-menu">
-					<li>
-						<a class="dropdown-item" href="#">Action</a>
-					</li>
-					<li>
-						<a class="dropdown-item" href="#">Another action</a>
-					</li>
-					<li>
-						<a class="dropdown-item" href="#">Something else here</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-    {# offcanvas #}
-{% endblock %}
+    {% endblock %}

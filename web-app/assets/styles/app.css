@@ -1,7 +1,10 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+/* body {
+  background-color: #ab47bc;
+} */
 
-body {
-    background-color: #ab47bc;
+:root {
+  --offcanvas-width: 270px;
+}
+.sidebar-nav {
+  width: var(--offcanvas-width);
 }
