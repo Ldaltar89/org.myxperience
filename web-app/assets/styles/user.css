@@ -1,5 +1,18 @@
 @media (min-width: 992px) {
   .user_table {
-    margin-left: 240px
+    margin-left: 210px;
+    margin-right: 10px;
+  }
+  
+}
+
+#datatable_user th td {
+  text-align: left; /* Centra el texto en las celdas de encabezado */
+}
+
+@media (max-width: 768px) {
+  .table-responsive {
+    width: 100%;
+    overflow-x: scroll;
   }
 }

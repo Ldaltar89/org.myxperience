@@ -1,82 +1,273 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}User
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('styles/user.css') }}">
+	<style>
+		/* Desactivar el resaltado azul al hacer clic en los elementos del formulario */
+		input: focus, {
+			outline: none;
+		}
+	</style>
+{% endblock %}
 
 {% block content %}
-    <h1>User</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-10">
+            <div class="card shadow user_table" style="margin-right: -250px;">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="m-0">Detalles del Usuario</h3>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td><input type="text" class="form-control" value="{{ user.email }}" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Roles</th>
+                                            <td><input type="text" class="form-control" value="{{ user.roles ? user.roles|json_encode : '' }}" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Verificado</th>
+                                            <td><input type="text" class="form-control" value="{{ user.isVerified ? 'Sí' : 'No' }}" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <td><input type="text" class="form-control" value="{{ user.name }}" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Apellido</th>
+                                            <td><input type="text" class="form-control" value="{{ user.lastname }}" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <th>DNI</th>
+                                            <td><input type="text" class="form-control" value="{{ user.dni }}" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Activo</th>
+                                            <td><input type="text" class="form-control" value="{{ user.isActive ? 'Sí' : 'No' }}" readonly></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th>Creado</th>
+                                            <td><input type="text" class="form-control" value="{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Creado por</th>
+                                            <td><input type="text" class="form-control" value="{{ user.createdBy }}" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Actualizado</th>
+                                            <td><input type="text" class="form-control" value="{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Actualizado por</th>
+                                            <td><input type="text" class="form-control" value="{{ user.updatedBy }}" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Cumpleaños</th>
+                                            <td><input type="text" class="form-control" value="{{ user.birthday ? user.birthday|date('Y-m-d H:i:s') : '' }}" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Imagen de Usuario</th>
+                                            <td><input type="text" class="form-control" value="{{ user.userImage }}" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Género</th>
+                                            <td><input type="text" class="form-control" value="{{ user.gender }}" readonly></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                    <a href="{{ path('app_user_index') }}" class="btn btn-secondary">Volver a la Lista</a>
+                    <div class="d-md-flex">
+                        <div class="col-md-6 mb-md-0 mb-2">
+                            <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-primary w-100">Editar</a>
+                        </div>
+                        <div class="col-md-6 mx-2">
+                            {{ include('user/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>IsVerified</th>
-                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ user.name }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Dni</th>
-                <td>{{ user.dni }}</td>
-            </tr>
-            <tr>
-                <th>IsActive</th>
-                <td>{{ user.isActive ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>CreatedBy</th>
-                <td>{{ user.createdBy }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedBy</th>
-                <td>{{ user.updatedBy }}</td>
-            </tr>
-            <tr>
-                <th>Birthday</th>
-                <td>{{ user.birthday ? user.birthday|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>User_image</th>
-                <td>{{ user.userImage }}</td>
-            </tr>
-            <tr>
-                <th>Gender</th>
-                <td>{{ user.gender }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
 
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+	{# <div class="container">
+														  <div class="row">
+														    <div class="col-md-12">
+														      <h1>User Details</h1>
+														      <table class="table table-striped table-bordered table-hover table-responsive">
+														        <tbody>
+														          <tr>
+														            <th>Email</th>
+														            <td>{{ user.email }}</td>
+														          </tr>
+														          <tr>
+														            <th>Roles</th>
+														            <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+														          </tr>
+														          <tr>
+														            <th>Is Verified</th>
+														            <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+														          </tr>
+														          <tr>
+														            <th>Name</th>
+														            <td>{{ user.name }}</td>
+														          </tr>
+														          <tr>
+														            <th>Lastname</th>
+														            <td>{{ user.lastname }}</td>
+														          </tr>
+														          <tr>
+														            <th>Dni</th>
+														            <td>{{ user.dni }}</td>
+														          </tr>
+														          <tr>
+														            <th>IsActive</th>
+														            <td>{{ user.isActive ? 'Yes' : 'No' }}</td>
+														          </tr>
+														          <tr>
+														            <th>Created At</th>
+														            <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+														          </tr>
+														          <tr>
+														            <th>Created By</th>
+														            <td>{{ user.createdBy }}</td>
+														          </tr>
+														          <tr>
+														            <th>Updated At</th>
+														            <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+														          </tr>
+														          <tr>
+														            <th>Updated By</th>
+														            <td>{{ user.updatedBy }}</td>
+														          </tr>
+														          <tr>
+														            <th>Birthday</th>
+														            <td>{{ user.birthday ? user.birthday|date('Y-m-d H:i:s') : '' }}</td>
+														          </tr>
+														          <tr>
+														            <th>User Image</th>
+														            <td>{{ user.userImage }}</td>
+														          </tr>
+														          <tr>
+														            <th>Gender</th>
+														            <td>{{ user.gender }}</td>
+														          </tr>
+														        </tbody>
+														      </table>
+														
+														      <div class="row">
+														        <div class="col-md-6">
+														          <a href="{{ path('app_user_index') }}" class="btn btn-secondary">Back to List</a>
+														        </div>
+														        <div class="col-md-6 text-end">
+														          <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-primary">Edit</a>
+														          {{ include('user/_delete_form.html.twig') }}
+														        </div>
+														      </div>
+														    </div>
+														  </div>
+														</div> #}
 
-    {{ include('user/_delete_form.html.twig') }}
+
+	{# <div class="">
+																<table class="table">
+																	<h1>User</h1>
+																	<tbody>
+																		<tr>
+																			<th>Id</th>
+																			<td>{{ user.id }}</td>
+																		</tr>
+																		<tr>
+																			<th>Email</th>
+																			<td>{{ user.email }}</td>
+																		</tr>
+																		<tr>
+																			<th>Roles</th>
+																			<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+																		</tr>
+																		<tr>
+																			<th>Password</th>
+																			<td>{{ user.password }}</td>
+																		</tr>
+																		<tr>
+																			<th>IsVerified</th>
+																			<td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+																		</tr>
+																		<tr>
+																			<th>Name</th>
+																			<td>{{ user.name }}</td>
+																		</tr>
+																		<tr>
+																			<th>Lastname</th>
+																			<td>{{ user.lastname }}</td>
+																		</tr>
+																		<tr>
+																			<th>Dni</th>
+																			<td>{{ user.dni }}</td>
+																		</tr>
+																		<tr>
+																			<th>IsActive</th>
+																			<td>{{ user.isActive ? 'Yes' : 'No' }}</td>
+																		</tr>
+																		<tr>
+																			<th>CreatedAt</th>
+																			<td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+																		</tr>
+																		<tr>
+																			<th>CreatedBy</th>
+																			<td>{{ user.createdBy }}</td>
+																		</tr>
+																		<tr>
+																			<th>UpdatedAt</th>
+																			<td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+																		</tr>
+																		<tr>
+																			<th>UpdatedBy</th>
+																			<td>{{ user.updatedBy }}</td>
+																		</tr>
+																		<tr>
+																			<th>Birthday</th>
+																			<td>{{ user.birthday ? user.birthday|date('Y-m-d H:i:s') : '' }}</td>
+																		</tr>
+																		<tr>
+																			<th>User_image</th>
+																			<td>{{ user.userImage }}</td>
+																		</tr>
+																		<tr>
+																			<th>Gender</th>
+																			<td>{{ user.gender }}</td>
+																		</tr>
+																	</tbody>
+																</table>
+														
+																<a href="{{ path('app_user_index') }}">back to list</a>
+														
+																<a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+														
+																{{ include('user/_delete_form.html.twig') }}
+															</div> #}
 {% endblock %}

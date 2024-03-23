@@ -11,7 +11,6 @@
 {% block content %}
 	<div class="user_table" >
 		<h2>Usuarios</h2>
-		<div class="">
 			<div class="col-sm-12 col-md-12 col-lg-12 col-lx-12">
 				<table id="datatable_user" class="table">
 					<thead class="table-dark">
@@ -41,8 +40,8 @@
 								<td>{{ user.birthday ? user.birthday|date('Y-m-d H:i:s') : '' }}</td>
 								<td>{{ user.gender }}</td>
 								<td>
-									<a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-secondary"><i class="bi bi-eye"></i> Show</a>
-                                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-success"><i class="bi bi-pencil-square"></i> Editar</a>
+									<a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-secondary btn-sm"><i class="bi bi-eye"></i></a>
+                                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>
 								</td>
 							</tr>
 						{% else %}
@@ -54,7 +53,7 @@
 				</table>
 				<a href="{{ path('app_user_new') }}" class="btn btn-primary">Create new</a>
 			</div>
-		</div>
+	
 	</div>
 
 	{# <table class="table">
