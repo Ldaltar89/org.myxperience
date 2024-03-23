@@ -4,79 +4,26 @@
 {% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('styles/user.css') }}">
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('styles/user.css') }}">
+
 {% endblock %}
-
-{% block content %}
-	<div class="user_table" >
-		<h2>Usuarios</h2>
-			<div class="col-sm-12 col-md-12 col-lg-12 col-lx-12">
-				<table id="datatable_user" class="table">
-					<thead class="table-dark">
-						<tr>
-							<th>Email</th>
-							<th>IsVerified</th>
-							<th>Name</th>
-							<th>Lastname</th>
-							<th>Dni</th>
-							<th>Season</th>
-							<th>University</th>
-							<th>Birthday</th>
-							<th>Gender</th>
-							<th>actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for user in users %}
-							<tr>
-								<td>{{ user.email }}</td>
-								<td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
-								<td>{{ user.name }}</td>
-								<td>{{ user.lastname }}</td>
-								<td>{{ user.dni }}</td>
-								<td>{{ user.season.name }}</td>
-								<td>{{ user.university.name }}</td>
-								<td>{{ user.birthday ? user.birthday|date('Y-m-d H:i:s') : '' }}</td>
-								<td>{{ user.gender }}</td>
-								<td>
-									<a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-secondary btn-sm"><i class="bi bi-eye"></i></a>
-                                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>
-								</td>
-							</tr>
-						{% else %}
-							<tr>
-								<td colspan="17">no records found</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-				<a href="{{ path('app_user_new') }}" class="btn btn-primary">Create new</a>
-			</div>
 	
-	</div>
-
-	{# <table class="table">
-				<thead>
+{% block content %}
+	<div class="user_table">
+		<h2>Usuarios</h2>
+		<div class="col-sm-12 col-md-12 col-lg-12 col-lx-12">
+			<table id="datatable_user" class="table">
+				<thead class="table-dark">
 					<tr>
-						<th>Id</th>
 						<th>Email</th>
-						<th>Roles</th>
-						<th>Password</th>
 						<th>IsVerified</th>
 						<th>Name</th>
 						<th>Lastname</th>
 						<th>Dni</th>
 						<th>Season</th>
 						<th>University</th>
-						<th>Image</th>
-						<th>IsActive</th>
-						<th>CreatedAt</th>
-						<th>CreatedBy</th>
-						<th>UpdatedAt</th>
-						<th>UpdatedBy</th>
 						<th>Birthday</th>
-						<th>User_image</th>
 						<th>Gender</th>
 						<th>actions</th>
 					</tr>
@@ -84,28 +31,22 @@
 				<tbody>
 					{% for user in users %}
 						<tr>
-							<td>{{ user.id }}</td>
 							<td>{{ user.email }}</td>
-							<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-							<td>{{ user.password }}</td>
 							<td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
 							<td>{{ user.name }}</td>
 							<td>{{ user.lastname }}</td>
 							<td>{{ user.dni }}</td>
 							<td>{{ user.season.name }}</td>
-							<td>{{ user.university.name }}</td> #}
-{# <td>{{ user.user_image }}</td> #}
-	{# <td>{{ user.isActive ? 'Yes' : 'No' }}</td>
-							<td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-							<td>{{ user.createdBy }}</td>
-							<td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-							<td>{{ user.updatedBy }}</td>
+							<td>{{ user.university.name }}</td>
 							<td>{{ user.birthday ? user.birthday|date('Y-m-d H:i:s') : '' }}</td>
-							<td>{{ user.userImage }}</td>
 							<td>{{ user.gender }}</td>
 							<td>
-								<a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-								<a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+								<a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-secondary btn-sm">
+									<i class="bi bi-eye"></i>
+								</a>
+								<a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-primary btn-sm">
+									<i class="bi bi-pencil-square"></i>
+								</a>
 							</td>
 						</tr>
 					{% else %}
@@ -114,7 +55,86 @@
 						</tr>
 					{% endfor %}
 				</tbody>
-			</table> #}
+			</table>
+			<a href="{{ path('app_user_new') }}" class="btn btn-primary">Create new</a>
+		</div>
+	</div>
+	{# <table class="table">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Email</th>
+								<th>Roles</th>
+								<th>Password</th>
+								<th>IsVerified</th>
+								<th>Name</th>
+								<th>Lastname</th>
+								<th>Dni</th>
+								<th>Season</th>
+								<th>University</th>
+								<th>Image</th>
+								<th>IsActive</th>
+								<th>CreatedAt</th>
+								<th>CreatedBy</th>
+								<th>UpdatedAt</th>
+								<th>UpdatedBy</th>
+								<th>Birthday</th>
+								<th>User_image</th>
+								<th>Gender</th>
+								<th>actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for user in users %}
+								<tr>
+									<td>{{ user.id }}</td>
+									<td>{{ user.email }}</td>
+									<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+									<td>{{ user.password }}</td>
+									<td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+									<td>{{ user.name }}</td>
+									<td>{{ user.lastname }}</td>
+									<td>{{ user.dni }}</td>
+									<td>{{ user.season.name }}</td>
+									<td>{{ user.university.name }}</td> #}
+{# <td>{{ user.user_image }}</td> #}
+	{# <td>{{ user.isActive ? 'Yes' : 'No' }}</td>
+									<td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+									<td>{{ user.createdBy }}</td>
+									<td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+									<td>{{ user.updatedBy }}</td>
+									<td>{{ user.birthday ? user.birthday|date('Y-m-d H:i:s') : '' }}</td>
+									<td>{{ user.userImage }}</td>
+									<td>{{ user.gender }}</td>
+									<td>
+										<a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
+										<a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="17">no records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table> #}
 
 	{# <a href="{{ path('app_user_new') }}">Create new</a> #}
 {% endblock %}
+
+{% block javascripts %}
+		<script>
+			new DataTable('#datatable_user', {
+					lengthMenu: [3,6,9,12],
+					ordering: false,
+					autoWidth: false,
+					responsive: true,
+					scrollX: true,
+					columnDefs: [
+					{ width: "5%", targets: 0 }, 
+					{ width: "8%", targets: 9 }, 
+					],       
+				});
+		</script>	
+{% endblock %}
+
